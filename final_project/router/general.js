@@ -84,4 +84,91 @@ public_users.get('/review/:isbn',function (req, res) {
  // return res.status(300).json({message: "Yet to be implemented"});
 });
 
+public_users.get('/',function (req, res) {
+  axios.get('http://localhost:5000/books')
+  .then(response => {
+    res.json(response.data);
+  })
+  .catch(err => {
+    res.status(500).json({message: err.message});
+  });
+});
+
+
+public_users.get('/', async function (req, res) {
+  try {
+    const response = await axios.get('http://localhost:5000/books');
+    res.json(response.data);
+  } catch (err) {
+    res.status(500).json({message: err.message});
+  }
+});
+
+public_users.get('/isbn/:isbn',function (req, res) {
+  let isbn = req.params.isbn;
+  axios.get(`http://localhost:5000/books/${isbn}`)
+  .then(response => {
+    res.json(response.data);
+  })
+  .catch(err => {
+    res.status(500).json({message: err.message});
+  });
+});
+
+public_users.get('/isbn/:isbn', async function (req, res) {
+  try {
+    let isbn = req.params.isbn;
+    const response = await axios.get(`http://localhost:5000/books/${isbn}`);
+    res.json(response.data);
+  } catch (err) {
+    res.status(500).json({message: err.message});
+  }
+});
+
+public_users.get('/author/:author',function (req, res) {
+  let author = req.params.author;
+  axios.get(`http://localhost:5000/books?author=${author}`)
+  .then(response => {
+    res.json(response.data);
+  })
+  .catch(err => {
+    res.status(500).json({message: err.message});
+  });
+});
+
+
+public_users.get('/author/:author', async function (req, res) {
+  try {
+    let author = req.params.author;
+    const response = await axios.get(`http://localhost:5000/books?author=${author}`);
+    res.json(response.data);
+  } catch (err) {
+    res.status(500).json({message: err.message});
+  }
+});
+
+
+public_users.get('/title/:title',function (req, res) {
+  let title = req.params.title;
+  axios.get(`http://localhost:5000/books?title=${title}`)
+  .then(response => {
+    res.json(response.data);
+  })
+  .catch(err => {
+    res.status(500).json({message: err.message});
+  });
+});
+
+
+public_users.get('/title/:title', async function (req, res) {
+  try {
+    let title = req.params.title;
+    const response = await axios.get(`http://localhost:5000/books?title=${title}`);
+    res.json(response.data);
+  } catch (err) {
+    res.status(500).json({message: err.message});
+  }
+});
+
+
 module.exports.general = public_users;
